@@ -1,4 +1,5 @@
 import unittest
+import heapq
 
 class unitest(unittest.TestCase):
     def testOneOddList(self):
@@ -11,19 +12,25 @@ class unitest(unittest.TestCase):
         nums2 = []
         Ans = 2
         self.assertEqual(Solution().findMedianSortedArrays(nums1,nums2),Ans);
+    def testNumberOddList(self):
+        nums1 = [1,3]
+        nums2 = [2]
+        Ans = 2
+        self.assertEqual(Solution().findMedianSortedArrays(nums1,nums2),Ans);
+    def testNumberEvenList(self):
+        nums1 = [1,4]
+        nums2 = [2,3]
+        Ans = 2.5
+        self.assertEqual(Solution().findMedianSortedArrays(nums1,nums2),Ans);
 
 class Solution():
     def findMedianSortedArrays(self, nums1, nums2):
-        if not nums1:
-            tmp = nums2
-        if not nums2:
-            tmp = nums1
-        mid = int(len(tmp)/2)
-        if len(tmp) % 2:
-            Ans = tmp[mid]
+        a = list(heapq.merge(nums1,nums2))
+        mid = int(len(a)/2)
+        if len(a)%2:
+            return a[mid]
         else:
-            Ans = (tmp[mid-1]+tmp[mid])/2
-        return Ans
+            return (float(a[mid-1]) + float(a[mid]))/2
 
 if __name__ == '__main__':
     unittest.main()
